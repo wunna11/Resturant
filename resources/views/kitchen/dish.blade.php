@@ -9,12 +9,16 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Starter Page</h1>
+            <h1 class="m-0">Dish Page</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
+            @if (session('message'))
+                <div class="alert alert-success">
+                    {{ session('message') }}
+                </div>
+            @endif
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Dish Page</li>
+              <a href="{{ route('dish.create') }}" type="button" class="btn btn-default">Create</a>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -36,24 +40,35 @@
                 <table id="dish" class="table table-bordered table-striped dishes">
                   <thead>
                   <tr>
-                      <th>Rendering engine</th>
-                      <th>Browser</th>
-                      <th>Platform(s)</th>
-                      <th>Engine version</th>
-                      <th>CSS grade</th>
+                      <th>ID</th>
+                      <th>Name</th>
+                      <th>Category</th>
+                      <th>Created</th>
+                      <th>Actions</th>
                     </tr>
                   </thead>
-                  <tbody>
-                  <tr>
-                      <td>Trident</td>
-                      <td>Internet
-                        Explorer 4.0
-                      </td>
-                      <td>Win 95+</td>
-                      <td> 4</td>
-                      <td>X</td>
-                    </tr>
-                  </tbody>
+
+                    <tbody>
+                      @foreach ($dishes as $dish)
+                      <tr>
+                        <td>{{ $dish->id }}</td>
+                        <td>{{ $dish->name }}</td>
+                        <td>{{ $dish->category->name }}</td>
+                        <td>{{ $dish->created_at }}</td>
+                        <td>
+                          <div class="form-row">
+                            <a href="{{ route('dish.edit', $dish->id) }}" type="button" class="btn btn-warning" style="height: 40px; margin-right: 10px;">Edit</a>
+                            <form action="{{ route('dish.destroy', $dish->id )}}" method="POST">
+                              @csrf
+                              @method('DELETE')
+                              <button type="submit" class="btn btn-danger" onclick="return confirm('Are you want to delete this item?');">Delete</button>
+                            </form>
+                          </div>
+                        </td>
+                        </div>
+                      </tr>
+                      @endforeach
+                    </tbody>                      
                 </table>
               </div>
             </div>
@@ -63,16 +78,29 @@
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content -->
-  </div>
+</div>
   <!-- /.content-wrapper -->
 
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js" integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  
+  <script>
+    $( document ).ready(function() {
+      $('#dish').DataTable({
+        "paging": true,
+        "lengthChange": true,
+        "searching": true,
+        "ordering": true,
+        "info": true,
+        "autoWidth": true,
+        "responsive": true,
+      });
+    });
+  
+  </script>
 @endsection
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js" integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script>
-  $(document).ready(function() {
-      $('.dishes').DataTable();
-  } );
-</script>
+
+
 
 

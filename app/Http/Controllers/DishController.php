@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreDishRequest;
+use App\Http\Requests\UpdateDishRequest;
+use App\Models\Category;
 use App\Models\Dish;
 use Illuminate\Http\Request;
 
@@ -25,7 +28,8 @@ class DishController extends Controller
      */
     public function create()
     {
-        //
+        $cats = Category::all();
+        return view('kitchen.create_dish', compact('cats'));
     }
 
     /**
@@ -34,9 +38,20 @@ class DishController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreDishRequest $request)
     {
-        //
+        $dish = new Dish();
+        $dish->name = request('name');
+        $dish->category_id = request('category');
+
+        $image = request('image');
+        $imageName = uniqid()."_".$image->getClientOriginalName();
+        $image->move(public_path("images/dishes/"), $imageName);
+        $dish->image = $imageName;
+        
+        $dish->save();
+
+        return redirect()->route('dish.index')->with('message', 'Dish is created!');
     }
 
     /**
@@ -56,9 +71,10 @@ class DishController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Dish $dish)
     {
-        //
+        $cats = Category::all();
+        return view('kitchen.edit_dish', compact('dish', 'cats'));
     }
 
     /**
@@ -68,9 +84,20 @@ class DishController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateDishRequest $request, Dish $dish)
     {
-        //
+        $dish->name = request('name');
+        $dish->category_id = request('category');
+
+        if(request('image')) {
+            $image = request('image');
+            $imageName = uniqid()."_".$image->getClientOriginalName();
+            $image->move(public_path("images/dishes/"), $imageName);
+            $dish->image = $imageName;
+        }
+        $dish->update();
+
+        return redirect()->route('dish.index')->with('message', 'Dish is updated successfully!');
     }
 
     /**
@@ -79,8 +106,9 @@ class DishController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Dish $dish)
     {
-        //
+        $dish->delete();
+        return back()->with('message', 'Dish is deleted successfully!');
     }
 }
