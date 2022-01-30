@@ -1,8 +1,11 @@
 <?php
 
 use App\Http\Controllers\DishController;
+use App\Http\Controllers\KitchenController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Symfony\Component\Routing\RouteCompiler;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,9 +24,13 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-
-// Route::get('/dishes', [DishController::class, 'index'])->name('dish.index');
-
 Route::resource('dish', DishController::class);
+Route::get('/order', [KitchenController::class, 'index'])->name('kitchen.index');
+Route::get('/order/{order}/approve', [KitchenController::class, 'approve'])->name('kitchen.approve');
+Route::get('/order/{order}/ready', [KitchenController::class, 'ready'])->name('kitchen.ready');
+Route::get('/order/{order}/cancel', [KitchenController::class, 'cancel'])->name('kitchen.cancel');
+// serve == done
+Route::get('/order/{order}/serve', [OrderController::class, 'serve'])->name('kitchen.serve');
+
+Route::get('/waiter/order', [OrderController::class, 'index'])->name('order.index');
+Route::post('/waiter/order-submit', [OrderController::class, 'submit'])->name('order.submit');
