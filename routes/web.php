@@ -5,8 +5,10 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DishController;
 use App\Http\Controllers\KitchenController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\TableController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use League\CommonMark\Extension\Table\TableCell;
 use PhpParser\Node\Expr\Cast;
 use PhpParser\Node\Stmt\Catch_;
 use Symfony\Component\Routing\RouteCompiler;
@@ -42,6 +44,9 @@ Route::get('/cashier', [CashierController::class, 'cashier'])->name('cashier');
 
 // Category
 Route::resource('category', CategoryController::class);
+
+// Table
+Route::resource('table', TableController::class);
 
 // Waiter Panel
 Route::get('/waiter/order', [OrderController::class, 'index'])->name('order.index');
