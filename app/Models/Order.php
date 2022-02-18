@@ -13,4 +13,9 @@ class Order extends Model
     {
         return $this->belongsTo(Dish::class);
     }
+
+    public function table()
+    {
+        return $this->belongsTo(Table::class);
+    }
 }

@@ -9,7 +9,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Dish Page</h1>
+            <h1 class="m-0">Cashier</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             @if (session('message'))
@@ -37,41 +37,14 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <table id="dish" class="table table-bordered table-striped dishes">
-                  <thead>
-                  <tr>
-                      <th>ID</th>
-                      <th>Name</th>
-                      <th>Price</th>
-                      <th>Category</th>
-                      <th>Created</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-
-                    <tbody>
-                      @foreach ($dishes as $dish)
-                      <tr>
-                        <td>{{ $dish->id }}</td>
-                        <td>{{ $dish->name }}</td>
-                        <td>$ {{ $dish->price }}</td>
-                        <td>{{ $dish->category->name }}</td>
-                        <td>{{ $dish->created_at }}</td>
-                        <td>
-                          <div class="form-row">
-                            <a href="{{ route('dish.edit', $dish->id) }}" type="button" class="btn btn-warning" style="height: 40px; margin-right: 10px;">Edit</a>
-                            <form action="{{ route('dish.destroy', $dish->id )}}" method="POST">
-                              @csrf
-                              @method('DELETE')
-                              <button type="submit" class="btn btn-danger" onclick="return confirm('Are you want to delete this item?');">Delete</button>
-                            </form>
-                          </div>
-                        </td>
-                        </div>
-                      </tr>
-                      @endforeach
-                    </tbody>                      
-                </table>
+               
+                    {{-- @foreach ($orders as $order)
+                    $array = 
+                    @for ($i = 0; $i < count($order->table->number); $i++)
+                        <p>{{ $order->table_id }} - {{ $order->dish->name }} - {{ $order->dish->price}}</p>
+                        @endfor
+                    @endforeach --}}
+                
               </div>
             </div>
           </div>

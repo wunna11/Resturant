@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 
 class KitchenController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $raw_result = config('res.order_status');

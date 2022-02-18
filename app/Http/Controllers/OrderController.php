@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
+
     public function index()
     {
         $raw_result = config('res.order_status');
@@ -58,4 +59,5 @@ class OrderController extends Controller
         $order->save();
         return back()->with('message', 'Order is serve to customer!');
     }
+
 }

@@ -15,6 +15,12 @@ class DishController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $dishes = Dish::all();
@@ -43,6 +49,7 @@ class DishController extends Controller
         $dish = new Dish();
         $dish->name = request('name');
         $dish->category_id = request('category');
+        $dish->price = request('price');
 
         $image = request('image');
         $imageName = uniqid()."_".$image->getClientOriginalName();
@@ -88,6 +95,7 @@ class DishController extends Controller
     {
         $dish->name = request('name');
         $dish->category_id = request('category');
+        $dish->price = request('price');
 
         if(request('image')) {
             $image = request('image');

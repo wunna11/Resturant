@@ -48,7 +48,22 @@
                         @endif
                         <div class="card-body">
                           <div class="tab-content" id="custom-tabs-one-tabContent">
-                            <div class="tab-pane fade show active" id="custom-tabs-one-home" role="tabpanel" aria-labelledby="custom-tabs-one-home-tab">    
+                            <div class="tab-pane fade show active" id="custom-tabs-one-home" role="tabpanel" aria-labelledby="custom-tabs-one-home-tab">   
+                              <div class="d-flex bd-highlight mb-3">
+                                <div class="mr-auto p-2 bd-highlight"><h1>Order Form</h1></div>
+                                <div class="p-2 bd-highlight">
+                                  {{-- <div class="input-group rounded">
+                                    <form action="{{ url('/search/order') }}" method="GET" role="search">
+                                      @csrf
+                                      <input type="search" class="form-control rounded" name="search" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+                                      <span class="input-group-text border-0" id="search-addon">
+                                        <i class="fas fa-search"></i>
+                                      </span>
+                                    </form>
+                                  </div> --}}
+                                </div>
+                              </div>
+                              
                               <form action="{{ route('order.submit') }}" method="POST">
                                 @csrf
                                 <div class="row">
@@ -58,7 +73,8 @@
                                             <div class="card">
                                               <img class="card-img-top" src="{{ asset('images/dishes/'.$dish->image )}}" width="100" height="200" alt="Card image cap">
                                               <div class="card-body">
-                                                <h5 class="card-title"><b>{{ $dish->name }}</b></h5><br><br>
+                                                <h5 class="card-title"><b>{{ $dish->name }}</b></h5><br>
+                                                <h3><b>$ {{ $dish->price }}</b></h3><br>
                                                 <label for="">Quantity: </label>
                                                 <input type="number" class="from-control" name="{{ $dish->id }}">
                                               </div>

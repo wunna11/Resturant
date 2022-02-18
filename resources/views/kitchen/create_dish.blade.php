@@ -58,6 +58,11 @@
                       @endforeach
                     </select>
                   </div>
+
+                  <div class="form-group">
+                    <label for="">Price</label>
+                    <input type="number" name="price" class="form-control" value="{{ old('price') }}">
+                  </div>
                   
                   <div class="form-group mt-3">
                     <label for="">Image</label>

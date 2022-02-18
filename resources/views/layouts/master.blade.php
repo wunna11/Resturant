@@ -104,6 +104,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <p>Order</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="{{ route('cashier') }}" class="nav-link {{ Request::segment(1) == 'cashier' ? 'active' : ' '}}">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Cashier</p>
+                </a>
+              </li>
             </ul>
           </li>
         </ul>

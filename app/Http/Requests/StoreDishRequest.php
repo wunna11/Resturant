@@ -26,6 +26,7 @@ class StoreDishRequest extends FormRequest
         return [
             'name' => 'required',
             'category' => 'required',
+            'price' => 'required',
             'image' => 'required|image',
         ];
     }

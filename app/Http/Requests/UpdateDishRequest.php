@@ -25,7 +25,8 @@ class UpdateDishRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'category' => 'required'
+            'category' => 'required',
+            'price' => 'required',
         ];
     }
 }
