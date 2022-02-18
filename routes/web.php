@@ -1,12 +1,14 @@
 <?php
 
 use App\Http\Controllers\CashierController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DishController;
 use App\Http\Controllers\KitchenController;
 use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use PhpParser\Node\Expr\Cast;
+use PhpParser\Node\Stmt\Catch_;
 use Symfony\Component\Routing\RouteCompiler;
 
 /*
@@ -38,6 +40,8 @@ Route::get('/order/{order}/serve', [OrderController::class, 'serve'])->name('kit
 // Cashier
 Route::get('/cashier', [CashierController::class, 'cashier'])->name('cashier');
 
+// Category
+Route::resource('category', CategoryController::class);
 
 // Waiter Panel
 Route::get('/waiter/order', [OrderController::class, 'index'])->name('order.index');
